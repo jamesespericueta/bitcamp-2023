@@ -14,6 +14,11 @@ function JoinGroupScreen(){
      *      - have option for user to type code manually
      *      - query db to check for code
      */ 
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        // TODO: Query the database with the entered code
+      };
+      
     return(
         <div>
             <h1>Join a Group</h1>
