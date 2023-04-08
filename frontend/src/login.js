@@ -45,15 +45,4 @@ function LoginScreen() {
   );
 }
 
-function App() {
-  return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginScreen />} />
-        <Route path="/menu" element={<MenuScreen />} />
-      </Routes>
-    </Router>
-  );
-}
-
-export default App;
+export default LoginScreen;
