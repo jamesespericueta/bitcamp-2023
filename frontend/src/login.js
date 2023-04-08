@@ -14,21 +14,20 @@ function LoginScreen() {
   //const currentUser = useContext(AuthContext);
   const[currentUser, setCurrentUser] = useState("");
 
-  function handleCodeChange(event) {
-    setEmail(event.target.value);
-  };
-
   let navigate = useNavigate();
-
+  
   const handleSubmit = (event) => {
     event.preventDefault();
-    const response = axios.post('localhost:8000/api/login', email, password);
+    const response = axios.post('http://localhost:8000/api/login', { email, password })
+        .then(response => {
+            setCurrentUser(response.data.userID);
+            navigate("/menu")
+        })
+        .catch(error => {
+            console.log(error);
+        })
     // Perform login logic here
     //const[currentUser, setCurrentUser] = useState("");
-    setCurrentUser(response.userID);
-
-    // Navigate to the menu screen
-    navigate("/menu");
   };
 
   return (

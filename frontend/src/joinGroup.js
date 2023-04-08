@@ -25,7 +25,7 @@ function JoinGroupScreen(){
         event.preventDefault();
         // TODO: Query the database with the entered code
         try {
-            const response = await axios.get(`localhost:3000/api/groups/${code}`);
+            const response = await axios.get(`http://localhost:8000/api/groups/${code}`);
             if (response.status === 200) {
                 setGroupExists(true);
             } else {
