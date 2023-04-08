@@ -29,7 +29,7 @@ function LoginScreen(){
                 <input
                  type = "password"
                  value = {password}
-                 onChange = {(event) = setEmail(event.target.value)}
+                 onChange = {(event) => setEmail(event.target.value)}
                  />    
                 </label>
                 <br />
