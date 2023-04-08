@@ -19,6 +19,7 @@ function LoginScreen() {
   const[currentUser, setCurrentUser] = useState("");
 
   let navigate = useNavigate();
+<<<<<<< HEAD
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -42,6 +43,21 @@ function LoginScreen() {
     } catch(err){
       console.error(err)
     }
+=======
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const response = axios.post('http://localhost:8000/api/login', { email, password })
+        .then(response => {
+            setCurrentUser(response.data.userID);
+            navigate("/menu")
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    // Perform login logic here
+    //const[currentUser, setCurrentUser] = useState("");
+>>>>>>> 6ddedadd5fdcdb00b0cd38c9e7480c895145fad2
   };
 
 

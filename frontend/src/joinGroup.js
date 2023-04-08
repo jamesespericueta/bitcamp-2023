@@ -28,6 +28,7 @@ function JoinGroupScreen(){
         event.preventDefault();
         // TODO: Query the database with the entered code
         try {
+<<<<<<< HEAD
             const json = JSON.stringify({
                 "userID": user.userID,
                 "groupCode": code
@@ -39,6 +40,9 @@ function JoinGroupScreen(){
                 }
             });
 
+=======
+            const response = await axios.get(`http://localhost:8000/api/groups/${code}`);
+>>>>>>> 6ddedadd5fdcdb00b0cd38c9e7480c895145fad2
             if (response.status === 200) {
                 setGroupExists(true);
             } else {

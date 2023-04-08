@@ -7,6 +7,10 @@ import axios from 'axios';
 function CreateGroupScreen(){
      const[groupName, setGroupName] = useState("");
 
+     function handleCodeChange(event) {
+        setGroupName(event.target.value);
+    };
+
      const handleSubmit = (event) => {
         event.preventDefault();
      }
