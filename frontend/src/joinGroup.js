@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import axios from 'axios'
+import { useContext } from 'react';
+import { AuthContext } from "./AuthContext";
 
 function JoinGroupScreen(){
-    /* TODO
+    const {user} = useContext(AuthContext);
+     /* TODO
      * Expected Behavior:
      *    When new group is created:
      *      - generate QR Code
@@ -25,7 +28,17 @@ function JoinGroupScreen(){
         event.preventDefault();
         // TODO: Query the database with the entered code
         try {
-            const response = await axios.get(`localhost:3000/api/groups/${code}`);
+            const json = JSON.stringify({
+                "userID": user.userID,
+                "groupCode": code
+            });
+            const response = await axios.post(`localhost:8000/api/groups/`, json, 
+            {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
             if (response.status === 200) {
                 setGroupExists(true);
             } else {

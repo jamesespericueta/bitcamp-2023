@@ -13,7 +13,11 @@ function CreateGroupScreen(){
 
      const sendName = async() =>{
         try{
-            const response = await axios.post('/api/createGroup', groupName);
+            const response = await axios.post('localhost:8000/api/createGroup',{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }, groupName);
         } catch(error){
             console.log(error);
         }
