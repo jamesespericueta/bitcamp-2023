@@ -6,7 +6,9 @@ function LoginScreen(){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        const form = event.target;
+        const formData = new FormData(form);
+        fetch('/login', {method: form.method, body: formData});
     };
 
     return(
