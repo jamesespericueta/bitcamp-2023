@@ -31,7 +31,7 @@ const createNewGroup = async(groupName, groupCode) => {
   }
 }
 
-createNewGroup('Test', 'ABf13');
+//createNewGroup('Test', 'ABf13');
 
 const app = express()
 
@@ -104,6 +104,9 @@ app.post('/api/createGroup', async(req, res) => {
   }
 })
 
+app.listen(8000, () => {
+  console.log('Server is running on port 8000');
+});
 // Connect to database and start server
 /*
 sequelize.authenticate()
