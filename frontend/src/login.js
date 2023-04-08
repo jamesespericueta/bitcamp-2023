@@ -19,6 +19,7 @@ function LoginScreen(){
     }
 
     return(
+        <Router>
         <div>
             <h1>Login Screen</h1>
             <form action="/script" onSubmit = {handleSubmit}>
@@ -48,6 +49,7 @@ function LoginScreen(){
             </form>
             <script src="script.js"></script>
         </div>
+        </Router>
     );
 }
 
