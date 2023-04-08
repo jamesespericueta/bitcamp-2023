@@ -17,7 +17,8 @@ function CreateGroupScreen(){
 
      const sendName = async() =>{
         try{
-            const response = await axios.post('/api/createGroup', groupName);
+            const response = await axios.post('/api/createGroup', { groupName });
+            console.log('Group code: ${response.data}')
         } catch(error){
             console.log(error);
         }
