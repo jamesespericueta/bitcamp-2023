@@ -1,8 +1,9 @@
-import logo from './logo.svg';
 import './App.css';
 import LoginScreen from './login.js';
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import MenuScreen from "./menu"
+import MenuScreen from "./menu.js";
+import JoinGroupScreen from './joinGroup.js';
+import CreateGroupScreen from './createGroup.js';
 
 function App() {
   return (
@@ -10,6 +11,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LoginScreen />} />
         <Route path="/menu" element={<MenuScreen />} />
+        <Route path="/create-group" element={<CreateGroupScreen />} />
+        <Route path="/join-group" element={<JoinGroupScreen />} />
       </Routes>
     </Router>
   );
