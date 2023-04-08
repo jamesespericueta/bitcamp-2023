@@ -1,0 +1,25 @@
+CREATE DATABASE groups;
+
+USE groups;
+
+CREATE TABLE IF NOT EXISTS users(
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(15) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS groups (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(15) NOT NULL,
+  group_code VARCHAR(5) UNIQUE NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT NOW()
+);
+
+CREATE TABLE IF NOT EXISTS user_groups (
+  id SERIAL PRIMARY KEY,
+  user_id INT REFERENCES users(id) ON DELETE CASCADE,
+  group_id INT REFERENCES groups(id) ON DELETE CASCADE,
+  UNIQUE(user_id, group_id)
+);
+
