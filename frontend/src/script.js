@@ -1,27 +1,27 @@
-const registrationForm = document.getElementById('registration-form');
-const message = document.getElementById('message');
+const loginForm = document.querySelector('form');
 
-registrationForm.addEventListener('submit', (event) => {
+loginForm.addEventListener('submit', (event) => {
   event.preventDefault();
+  const formData = new FormData(loginForm);
 
-  const formData = new FormData(registrationForm);
-
-  fetch('./auth', {
+  fetch('/login', {
     method: 'POST',
-    body: formData
+    body: formData,
   })
-    .then((response) => {
-      if (response.ok) {
-        message.textContent = 'User registered successfully.';
-        registrationForm.reset();
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        // redirect to the user's dashboard or home page
+        window.location.href = '/dashboard';
       } else {
-        response.json().then((data) => {
-          message.textContent = data.message;
-        });
+        // display an error message
+        const errorElement = document.getElementById('error-message');
+        errorElement.textContent = data.message;
       }
     })
     .catch((error) => {
       console.error(error);
-      message.textContent = 'An error occurred. Please try again later.';
+      const errorElement = document.getElementById('error-message');
+      errorElement.textContent = 'An error occurred. Please try again later.';
     });
 });
