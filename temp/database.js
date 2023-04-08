@@ -2,11 +2,11 @@ const { Sequelize } = require('sequelize-cockroachdb');
 
 const sequelize = new Sequelize({
   dialect: 'postgres',
-  username: '<username>',
-  password: '<password>',
-  host: '<host>',
+  username: 'james',
+  password: 'TgapSnNCkNO9niNpoiH7BO',
+  host: 'spotty-piglet-10075.7tt.cockroachlabs.cloud',
   port: 26257,
-  database: '<database>',
+  database: 'defaultdb',
   dialectOptions: {
     ssl: {
       rejectUnauthorized: false
