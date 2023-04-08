@@ -1,6 +1,17 @@
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React from "react";
 
+function MenuScreen() {
+  return (
+    <div>
+      <h1>Menu Screen</h1>
+      <p>Welcome to the menu screen!</p>
+    </div>
+  );
+}
+
+export default MenuScreen;
+
+/*
 //:const INITIAL_STATE = //axios object data
 
 
@@ -69,3 +80,4 @@ function MenuScreen(){
 }
 
 export default MenuScreen;
+*/
