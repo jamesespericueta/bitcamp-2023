@@ -8,7 +8,7 @@ function LoginScreen(){
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
-        fetch('/login', {method: form.method, body: formData});
+        fetch('./script.js', {method: form.method, body: formData});
     };
 
     return(
@@ -19,6 +19,7 @@ function LoginScreen(){
                 Email:
                 <input
                  type = "email"
+                 id = "username"
                  value = {email}
                  onChange = {(event) => setEmail(event.target.value)}
                  />
@@ -28,6 +29,7 @@ function LoginScreen(){
                 Password:
                 <input
                  type = "password"
+                 id = "password"
                  value = {password}
                  onChange = {(event) => setPassword(event.target.value)}
                  />    
@@ -35,6 +37,7 @@ function LoginScreen(){
                 <br />
                 <button type = "submit">Login</button> 
             </form>
+            <script src="script.js"></script>
         </div>
     );
 }
