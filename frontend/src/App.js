@@ -4,17 +4,22 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react
 import MenuScreen from "./menu.js";
 import JoinGroupScreen from './joinGroup.js';
 import CreateGroupScreen from './createGroup.js';
+import { AuthContext } from './AuthContext';
+import { useState } from 'react';
 
 function App() {
+  const [user, setUser] = useState(null);
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginScreen />} />
-        <Route path="/menu" element={<MenuScreen />} />
-        <Route path="/create-group" element={<CreateGroupScreen />} />
-        <Route path="/join-group" element={<JoinGroupScreen />} />
-      </Routes>
-    </Router>
+    <AuthContext.Provider value={{user, setUser}}>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginScreen />} />
+          <Route path="/menu" element={<MenuScreen />} />
+          <Route path="/create-group" element={<CreateGroupScreen />} />
+          <Route path="/join-group" element={<JoinGroupScreen />} />
+        </Routes>
+      </Router>
+    </AuthContext.Provider>
   );
 }
 

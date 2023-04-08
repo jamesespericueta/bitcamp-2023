@@ -6,7 +6,11 @@ import axios from "axios"
 
 const AuthContext = createContext();
 
-
+const overHeader = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -15,6 +19,31 @@ function LoginScreen() {
   const[currentUser, setCurrentUser] = useState("");
 
   let navigate = useNavigate();
+<<<<<<< HEAD
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    console.log("my nuts");
+    try{
+      const json = JSON.stringify({
+        "email": email,
+        "password": password
+      });
+      console.log("before ax");
+      const response = await axios.post('localhost:8000/api/login', json);
+      // Perform login logic here
+      //const[currentUser, setCurrentUser] = useState("");
+      setUser({'userID': response.userID});
+
+      if(response.success)
+      {
+        navigate("/menu");
+      }
+      // Navigate to the menu screen
+    } catch(err){
+      console.error(err)
+    }
+=======
   
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,10 +57,13 @@ function LoginScreen() {
         })
     // Perform login logic here
     //const[currentUser, setCurrentUser] = useState("");
+>>>>>>> 6ddedadd5fdcdb00b0cd38c9e7480c895145fad2
   };
 
+
+  const [user, setUser] = useState(null);
   return (
-    <AuthContext.Provider value={currentUser}>
+    <AuthContext.Provider value={{user, setUser}}>
     <div>
       <h1>Login Screen</h1>
       <form onSubmit={handleSubmit}>
