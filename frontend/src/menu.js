@@ -1,9 +1,33 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import JoinGroupScreen from "./joinGroup";
+
+function JoinGroupButton(){
+    let navigate = useNavigate();
+     
+    return(
+        <button id="join-group-button" onClick = {() => navigate("/join-group")}>
+            Join New Group
+        </button> //add path once new screen is made
+    );
+}
+
+function CreateNewGroupButton(){
+    let navigate = useNavigate();
+
+    return(
+        <button id="create-group-button" onClick = {() => navigate("/create-group")}>
+            Create New Group
+        </button>
+    );
+}
 
 function MenuScreen() {
   return (
     <div>
       <h1>Menu Screen</h1>
+        <JoinGroupButton />
+        <CreateNewGroupButton />
       <p>Welcome to the menu screen!</p>
     </div>
   );
