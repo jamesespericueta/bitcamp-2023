@@ -1,15 +1,27 @@
 const { Pool } = require('pg');
-const { Sequelize } = require('sequelize-cockroachdb');
+const express = require('express');
+const dotenv = require('dotenv');
 
-require('dotenv').config();
+dotenv.config();
+
+const app = express();
 
 const connectionString =  process.env.CONNECTION_URL;
 
 const pool = new Pool({
   connectionString,
-  application_name: "$ simple_crud"
+  ssl: {rejectUnauthorized: false},
 });
 
-const client = await pool.connect();
+pool.query('SELECT NOW()', (err, res) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log(`Connected to database at ${res.rows[0].now}`);
+  }
+});
+app
 
-module.exports = Pool;
+app.listen(3000, () => {
+  console.log('Server is listening on port 3000');
+})
