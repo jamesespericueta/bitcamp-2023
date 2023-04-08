@@ -8,13 +8,13 @@ function LoginScreen(){
         event.preventDefault();
         const form = event.target;
         const formData = new FormData(form);
-        fetch('./script.js', {method: form.method, body: formData});
+        fetch('/script', {method: form.method, body: formData});
     };
 
     return(
         <div>
             <h1>Login Screen</h1>
-            <form onSubmit = {handleSubmit}>
+            <form action="/script" onSubmit = {handleSubmit}>
                <label>
                 Email:
                 <input
