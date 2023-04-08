@@ -1,6 +1,6 @@
 const express = require('express');
-const passport = require('../middleware/authMiddleware');
-const User = require('../models/User');
+const passport = require('../authMiddleware');
+const User = require('../models/user');
 const router = express.Router();
 
 router.post('/login', passport.authenticate('local'), (req, res) => {
