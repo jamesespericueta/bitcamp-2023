@@ -1,8 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
+import axios from 'axios';
+//post group name to /api/createGroup
 
 
 function CreateGroupScreen(){
+     const[groupName, setGroupName] = useState("");
+
+     const handleSubmit = (event) => {
+        event.preventDefault();
+     }
+
+     const sendName = async() =>{
+        try{
+            const response = await axios.post('/api/createGroup', groupName);
+        } catch(error){
+            console.log(error);
+        }
+    };
     /* TODO
      * Expected Behavior:
      *    When new group is created:
@@ -18,7 +33,17 @@ function CreateGroupScreen(){
     return(
         <div>
             <h1>Create a Group</h1>
-            <p>Create a group screen</p>
+            <form onSubmit={handleSubmit}>
+                <label>
+                    Group Name:
+                    <input
+                        type="name"
+                        value={groupName}
+                        onChange ={(event) => setGroupName(event.target.value)}
+                        />
+                </label>
+                <button onClick={sendName}>Add</button>
+            </form>
         </div>
     );
 }
