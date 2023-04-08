@@ -1,10 +1,11 @@
 const { Pool } = require('pg');
 
 const pool = new Pool({
-  user: 'username',
-  host: 'localhost',
-  database: 'database',
-  password: 'password',
+  dialect: 'postgres',
+  user: 'james',
+  host: 'spotty-piglet-10075.7tt.cockroachlabs.cloud',
+  database: 'defaultdb',
+  password: 'TgapSnNCkNO9niNpoiH7BO',
   port: 26257,
   ssl: {
     rejectUnauthorized: false,
