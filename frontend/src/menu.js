@@ -6,7 +6,7 @@ function JoinGroupButton(){
     let navigate = useNavigate();
      
     return(
-        <button onClick = {() => navigate("/join-group")}>
+        <button id="join-group-button" onClick = {() => navigate("/join-group")}>
             Join New Group
         </button> //add path once new screen is made
     );
@@ -16,7 +16,7 @@ function CreateNewGroupButton(){
     let navigate = useNavigate();
 
     return(
-        <button onClick = {() => navigate("/create-group")}>
+        <button id="create-group-button" onClick = {() => navigate("/create-group")}>
             Create New Group
         </button>
     );
