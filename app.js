@@ -2,9 +2,11 @@ const express = require('express');
 const session = require('express-session');
 const passport = require('./authMiddleware');
 const authRoutes = require('./authRoutes');
-const sequelize = require('./database');
+const node = require('./database');
 
 const app = express()
+const bodyParser = require('body-parser');
+const { Pool } = require('pg');
 
 // Set up session middleware
 app.use(session({
