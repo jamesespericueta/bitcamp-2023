@@ -43,6 +43,7 @@ pool.connect((err, client, done) => {
     } else {
       console.log("Table already exists");
     }
+    client.release();
   })
 })
 
