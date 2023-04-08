@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useNavigate} from "react-router-dom";
 
 function LoginScreen(){
     const[email, setEmail] = useState("");
@@ -10,6 +11,12 @@ function LoginScreen(){
         const formData = new FormData(form);
         fetch('/script', {method: form.method, body: formData});
     };
+
+    let navigate = useNavigate();
+    const routeChange = () =>{
+        let path = './menu.js';
+        navigate(path);
+    }
 
     return(
         <div>
@@ -35,7 +42,9 @@ function LoginScreen(){
                  />    
                 </label>
                 <br />
-                <button type = "submit">Login</button> 
+                <button type = "submit"
+                 onClick={routeChange}
+                >Login</button> 
             </form>
             <script src="script.js"></script>
         </div>
