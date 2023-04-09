@@ -51,27 +51,13 @@ const createNewUser = async(username, email, password) => {
   }
 }
 
-createNewUser("john", "john@example.com", "pass");
+//createNewUser("john", "john@example.com", "pass");
 
 //createNewGroup('Test', 'ABf13');
 
-const app = express()
+const app = express();
+app.use(express.json());
 app.use(cors());
-
-// Set up session middleware
-/*
-app.use(session({
-  secret: 'mysecret',
-  resave: false,
-  saveUninitialized: false
-}));
-*/
-// Set up Passport.js middleware
-//   Mounts passport._ functions to app request processing pipeline
-//app.use(passport.initialize()); 
-//app.use(passport.session());
-// Set up routes
-//app.use('/auth', authRoutes);
 
 // Set up error handling middleware
 app.use((err, req, res, next) => {
@@ -80,7 +66,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal server error.' });
 });
 
-app.use(express.json());
 
 //adds a person to a group given their userID and groupCode
 app.post('/api/user_groups', async(req, res) => {
@@ -130,10 +115,9 @@ app.post('/api/createGroup', async(req, res) => {
 
 app.post('/api/login', async(req, res) => {
   try{
-    console.log("we are in");
+    console.log(req.body);
     const email = req.body.email;
     const password = req.body.password;
-    console.log(req)
     pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
       if (err) {
         console.error('Error executing query', err.stack);
