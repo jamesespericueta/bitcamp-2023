@@ -133,6 +133,7 @@ app.post('/api/login', async(req, res) => {
     console.log("we are in");
     const email = req.body.email;
     const password = req.body.password;
+    console.log(req)
     pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
       if (err) {
         console.error('Error executing query', err.stack);
