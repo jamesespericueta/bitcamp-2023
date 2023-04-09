@@ -25,8 +25,8 @@ function RegisterScreen(){
             });
 
             const response = await axios.post('http://localhost:8000/api/register', json, overHeader);
-
-            if(response.success){
+            console.log(response.data);
+            if(response.data.success){
                 navigate("/");
             } else {
                 console.log("user already exists");

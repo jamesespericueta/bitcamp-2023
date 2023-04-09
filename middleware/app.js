@@ -58,7 +58,7 @@ app.use((err, req, res, next) => {
 app.post('/api/register', async(req, res) => {
   try{
     const username = req.body.username;
-    const email = req.body.username;
+    const email = req.body.email;
     const password = req.body.password;
     const query = {
       text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING id',
@@ -67,9 +67,10 @@ app.post('/api/register', async(req, res) => {
 
     const result = await pool.query(query);
     console.log(`new user created with id: ${result.rows[0].id}`);
-    res.send({sucess: true});
+    res.send({success: true});
   } catch(err){
     console.error(err);
+    res.send({success: false});
   }
 })
 
