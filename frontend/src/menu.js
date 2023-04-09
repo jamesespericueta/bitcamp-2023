@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import JoinGroupScreen from "./joinGroup";
 import { AuthContext } from "./AuthContext";
 import axios from "axios";
-
+import { useState } from "react";
 const overHeader = {
     headers:{
         'Content-Type': 'application/json'
@@ -67,7 +67,6 @@ const {userID}= useContext(AuthContext);
                 </tr>
             </thead>
             <tbody>
-                {generateRows()}
             </tbody>
         </table>
       <p>Welcome to the menu screen!</p>
