@@ -17,6 +17,10 @@ function Members() {
                 "userID": userID
             });
             const response = await axios.post('http://localhost:8000/api/groups', json, overHeader);
+            if(response.rows[0]){
+                response.status(200).send();
+            }
+            return(response.data);
         } catch (err){
             console.error(err);
         }
@@ -29,7 +33,7 @@ function Members() {
                         <th>GroupName</th>
                     </tr>
                 </thead>
-                
+
             </table>
         </div>
     )
