@@ -2,7 +2,13 @@ import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import JoinGroupScreen from "./joinGroup";
 import { AuthContext } from "./AuthContext";
+import axios from "axios";
 
+const overHeader = {
+    headers:{
+        'Content-Type': 'application/json'
+    }
+}
 
 function JoinGroupButton(){
     let navigate = useNavigate();
@@ -25,6 +31,28 @@ function CreateNewGroupButton(){
 }
 
 function MenuScreen() {
+    const [data, setData] = useState([
+        {}
+    ]);
+
+    const generateRows = async() => {
+        try{
+            const json = JSON.stringify({
+                "userID": userID
+            });
+            const response = await axios.post('http://localhost:8000/api/groups', json, overHeader);
+            setData(response.data);
+            return data.map((item, index) => {
+                return(
+                    <tr key={index}>
+                        <td>{item.groupName}</td>
+                    </tr>
+                )
+            })
+        } catch(err){
+            console.error(err);
+        }
+    };
 const {userID}= useContext(AuthContext);
   return (
     <div>
@@ -32,6 +60,16 @@ const {userID}= useContext(AuthContext);
       <p>{userID}</p>
         <JoinGroupButton />
         <CreateNewGroupButton />
+        <table>
+            <thead>
+                <tr>
+                    <th>Group Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {generateRows()}
+            </tbody>
+        </table>
       <p>Welcome to the menu screen!</p>
     </div>
   );
