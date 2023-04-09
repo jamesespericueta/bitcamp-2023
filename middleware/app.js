@@ -42,7 +42,7 @@ const createNewUser = async(username, email, password) => {
 
 //createNewUser("john", "john@example.com", "pass");
 
-//createNewGroup('Test', 'ABf13');
+createNewGroup('Test', 'ABf13');
 
 const app = express();
 app.use(express.json());
@@ -113,11 +113,40 @@ app.post('/api/users', async (req, res) => {
 //
 app.post('/api/createGroup', async(req, res) => {
   try{
-
+      pool.query('SELECT EXISTS(SELECT 1 FROM groups WHERE group_code = $1)', [groupCodeToFind], (err, result) => {
+        if(err){
+          return console.error('Error executing query', err.stack);
+        } 
+        const exists = result.rows[0].exists;
+       if(exists){
+        res.status(200).send("Successful")
+       }
+      })
   } catch(err){
     console.error(err);
     res.status(500).send("Error retrieving groups");
   }
+})
+app.post('/api/joinGroup', async(req, res) => {
+  try{
+    console.log("in");
+      const groupCodeToFind = req.body.groupCode;
+      const userID = req.body.userID;
+      pool.query('SELECT EXISTS(SELECT 1 FROM groups WHERE group_code = $1)', [groupCodeToFind], (err, result) => {
+        if(err){
+          return console.error('Error executing query', err.stack);
+        } 
+        const exists = result.rows[0].exists;
+       if(exists){
+          res.status(200).send("Successful")
+       } else{
+          res.status(501).send("Fail");
+       }
+      })
+  } catch(err) {
+
+  }
+  res.status(500).send
 })
 
 app.post('/api/login', async(req, res) => {

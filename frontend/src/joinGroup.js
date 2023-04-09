@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AuthContext } from "./AuthContext";
 
 function JoinGroupScreen(){
-    const {user} = useContext(AuthContext);
+    const {userID} = useContext(AuthContext);
      /* TODO
      * Expected Behavior:
      *    When new group is created:
@@ -29,17 +29,17 @@ function JoinGroupScreen(){
         // TODO: Query the database with the entered code
         try {
             const json = JSON.stringify({
-                "userID": user.userID,
+                "userID": userID,
                 "groupCode": code
             });
-            const response = await axios.post(`localhost:8000/api/groups/`, json, 
+            const response = await axios.post(`http://localhost:8000/api/joingroup`, json, 
             {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             });
 
-            if (response.status === 200) {
+            if (response.status == 200) {
                 setGroupExists(true);
             } else {
                 setGroupExists(false);
