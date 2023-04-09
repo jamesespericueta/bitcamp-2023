@@ -9,9 +9,8 @@ import { AuthContext } from './AuthContext';
 import { useState } from 'react';
 
 function App() {
-  const [user, setUser] = useState(null);
   return (
-    <AuthContext.Provider value={{user, setUser}}>
+    <AuthProvider>
       <Router>
         <Routes>
           <Route path="/" element={<LoginScreen />} />
@@ -21,7 +20,7 @@ function App() {
           <Route path="/register" element={<RegisterScreen />} />
         </Routes>
       </Router>
-    </AuthContext.Provider>
+    </AuthProvider>
   );
 }
 

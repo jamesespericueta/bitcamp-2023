@@ -127,9 +127,9 @@ app.post('/api/login', async(req, res) => {
       if (result.rows.length === 0) {
         return res.status(401).json({ error: 'Invalid email or password' });
       }
-  
+      console.log(result.rows[0]);
       // User exists, return success
-      return res.json({ success: true, userID: result.rows[0].userID });
+      return res.json({ success: true, userID: result.rows[0].id });
     });
   } catch(err){
     console.error(err);
