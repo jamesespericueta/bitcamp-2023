@@ -1,6 +1,8 @@
 const express = require('express');
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
+const cors = require('cors');
+const http = require('http');
 
 
 //const session = require('express-session');
@@ -35,9 +37,26 @@ const createNewGroup = async(groupName, groupCode) => {
   }
 }
 
+const createNewUser = async(username, email, password) => {
+  const query = {
+    text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING id',
+    values: [username, email, password],
+  };
+
+  try {
+    const result = await pool.query(query);
+    console.log(`new user created with id: ${result.rows[0].id}`);
+  } catch (err) {
+    console.error('Error creating user', err.stack);
+  }
+}
+
+createNewUser("john", "john@example.com", "pass");
+
 //createNewGroup('Test', 'ABf13');
 
 const app = express()
+app.use(cors());
 
 // Set up session middleware
 /*
@@ -114,6 +133,7 @@ app.post('/api/login', async(req, res) => {
     console.log("we are in");
     const email = req.body.email;
     const password = req.body.password;
+    console.log(req)
     pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
       if (err) {
         console.error('Error executing query', err.stack);
@@ -132,7 +152,12 @@ app.post('/api/login', async(req, res) => {
   }
 })
 
-app.listen(8000, () => {
+
+//TODO: create a temporary use so that i can test the email and password login
+
+const server = http.createServer(app);
+
+server.listen(8000, () => {
   console.log('Server is running on port 8000');
 });
 // Connect to database and start server

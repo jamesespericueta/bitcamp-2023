@@ -18,18 +18,18 @@ function LoginScreen() {
   //const currentUser = useContext(AuthContext);
   const[currentUser, setCurrentUser] = useState("");
 
+
   let navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("my nuts");
     try{
       const json = JSON.stringify({
         "email": email,
         "password": password
       });
       console.log("before ax");
-      const response = await axios.post('localhost:8000/api/login', json);
+      const response = await axios.post('http://localhost:8000/api/login', json);
       // Perform login logic here
       //const[currentUser, setCurrentUser] = useState("");
       setUser({'userID': response.userID});
@@ -56,6 +56,7 @@ function LoginScreen() {
           <input
             type="email"
             value={email}
+            onChange = {(event) => setEmail(event.target.value)}
           />
         </label>
         <br />
@@ -64,6 +65,7 @@ function LoginScreen() {
           <input
             type="password"
             value={password}
+            onChange = {(event) => setPassword(event.target.value)}
           />
         </label>
         <br />
