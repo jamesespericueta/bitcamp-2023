@@ -19,7 +19,7 @@ function LoginScreen() {
   const[currentUser, setCurrentUser] = useState("");
 
 
-  let navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,6 +41,9 @@ function LoginScreen() {
     } catch(err){
       console.error(err)
     }
+  };
+  const handleRegister = async (event) =>{
+    navigate("/register")
   };
 
 
@@ -69,6 +72,7 @@ function LoginScreen() {
         </label>
         <br />
         <button type="submit">Login</button>
+        <button onClick={handleRegister}>Register</button>
       </form>
     </div>
     </AuthContext.Provider>
