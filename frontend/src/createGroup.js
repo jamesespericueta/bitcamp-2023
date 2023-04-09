@@ -1,12 +1,21 @@
 import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from 'axios';
+import QRCode from 'qrcode.react';
 //post group name to /api/createGroup
+
+function QRCodeGenerator({code}){
+    return(
+        <QRCode value = {code.toString()} />
+    )
+}
 
 
 function CreateGroupScreen(){
      const[groupName, setGroupName] = useState("");
-
+     const[joinCode, setJoinCode] = useState(null);
+     const[qrCode, setQRCode] = useState(null)
+    
      function handleCodeChange(event) {
         setGroupName(event.target.value);
     };
@@ -17,7 +26,13 @@ function CreateGroupScreen(){
 
      const sendName = async() =>{
         try{
+           // const json = JSON.stringify({
+            //    "groupName": groupName,
+              //  "userID": userID
+            //})
             const response = await axios.post('/api/createGroup', groupName);
+            setJoinCode(response.data.code);
+            
         } catch(error){
             console.log(error);
         }
@@ -47,6 +62,7 @@ function CreateGroupScreen(){
                         />
                 </label>
                 <button onClick={sendName}>Add</button>
+                <QRCodeGenerator code = {joinCode}/>
             </form>
         </div>
     );
