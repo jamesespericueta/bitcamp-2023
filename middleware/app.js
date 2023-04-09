@@ -2,6 +2,7 @@ const express = require('express');
 const { Pool } = require('pg');
 const dotenv = require('dotenv');
 
+
 //const session = require('express-session');
 //const passport = require('./authMiddleware');
 //const authRoutes = require('./authRoutes');
@@ -9,6 +10,9 @@ const dotenv = require('dotenv');
 
 dotenv.config();
 
+const headerJson = {
+  header: { 'Content-Type': 'application/json'}
+}
 
 const pool =  new Pool({
   connectionString: process.env.CONNECTION_URL,
@@ -52,6 +56,7 @@ app.use(session({
 
 // Set up error handling middleware
 app.use((err, req, res, next) => {
+  console.log("working");
   console.error(err.stack);
   res.status(500).json({ message: 'Internal server error.' });
 });
@@ -66,8 +71,8 @@ app.post('/api/user_groups', async(req, res) => {
     const result = await pool.query('SELECT group_id FROM groups WHERE group_code = $1', [groupCode]);
     const groupID = result.rows[0].group_id;
 
-    await pool.query('INSERT INTO user_groups (user_id, group_id) VALUES ($1, $2)', [user_id, group_id]);
-    res.status(201).send("User added to group successfully");
+    await pool.query('INSERT INTO user_groups (user_id, group_id) VALUES ($1, $2)', [userID, groupID]);
+    res.status(200).send("User added to group successfully");
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
@@ -101,6 +106,29 @@ app.post('/api/createGroup', async(req, res) => {
   } catch(err){
     console.error(err);
     res.status(500).send("Error retrieving groups");
+  }
+})
+
+app.post('/api/login', async(req, res) => {
+  try{
+    console.log("we are in");
+    const email = req.body.email;
+    const password = req.body.password;
+    pool.query('SELECT * FROM users WHERE email = $1 AND password = $2', [email, password], (err, result) => {
+      if (err) {
+        console.error('Error executing query', err.stack);
+        return res.status(500).json({ error: 'Error executing query' });
+      }
+  
+      if (result.rows.length === 0) {
+        return res.status(401).json({ error: 'Invalid email or password' });
+      }
+  
+      // User exists, return success
+      return res.json({ success: true, userID: result.rows[0].userID });
+    });
+  } catch(err){
+    console.error(err);
   }
 })
 

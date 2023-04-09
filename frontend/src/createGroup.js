@@ -26,13 +26,11 @@ function CreateGroupScreen(){
 
      const sendName = async() =>{
         try{
-           // const json = JSON.stringify({
-            //    "groupName": groupName,
-              //  "userID": userID
-            //})
-            const response = await axios.post('/api/createGroup', groupName);
-            setJoinCode(response.data.code);
-            
+            const response = await axios.post('localhost:8000/api/createGroup',{
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }, groupName);
         } catch(error){
             console.log(error);
         }

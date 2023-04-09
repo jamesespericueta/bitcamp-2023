@@ -6,7 +6,11 @@ import axios from "axios";
 
 const AuthContext = createContext();
 
-
+const overHeader = {
+  headers: {
+    'Content-Type': 'application/json'
+  }
+}
 
 function LoginScreen() {
   const [email, setEmail] = useState("");
@@ -15,23 +19,35 @@ function LoginScreen() {
   const[currentUser, setCurrentUser] = useState("");
 
   let navigate = useNavigate();
-  
-  const handleSubmit = (event) => {
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const response = axios.post('http://localhost:8000/api/login', { email, password })
-        .then(response => {
-            setCurrentUser(response.data.userID);
-            navigate("/menu")
-        })
-        .catch(error => {
-            console.log(error);
-        })
-    // Perform login logic here
-    //const[currentUser, setCurrentUser] = useState("");
+    console.log("my nuts");
+    try{
+      const json = JSON.stringify({
+        "email": email,
+        "password": password
+      });
+      console.log("before ax");
+      const response = await axios.post('localhost:8000/api/login', json);
+      // Perform login logic here
+      //const[currentUser, setCurrentUser] = useState("");
+      setUser({'userID': response.userID});
+
+      if(response.success)
+      {
+        navigate("/menu");
+      }
+      // Navigate to the menu screen
+    } catch(err){
+      console.error(err)
+    }
   };
 
+
+  const [user, setUser] = useState(null);
   return (
-    <AuthContext.Provider value={currentUser}>
+    <AuthContext.Provider value={{user, setUser}}>
     <div>
       <h1>Login Screen</h1>
       <form onSubmit={handleSubmit}>
@@ -40,7 +56,6 @@ function LoginScreen() {
           <input
             type="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
           />
         </label>
         <br />
@@ -49,7 +64,6 @@ function LoginScreen() {
           <input
             type="password"
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
           />
         </label>
         <br />
