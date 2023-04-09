@@ -23,7 +23,7 @@ function RegisterScreen(){
                 "username": username
             });
 
-            const response = await axios.post('http://localhost:8000/api/login', json, overHeader);
+            const response = await axios.post('http://localhost:8000/api/resgister', json, overHeader);
 
             if(response.success){
                 navigate("/");
@@ -67,5 +67,5 @@ function RegisterScreen(){
             <button type="submit">Register</button>
             </form> 
         </div>
-    )
+    );
 }
