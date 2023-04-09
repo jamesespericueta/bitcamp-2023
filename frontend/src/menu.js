@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import JoinGroupScreen from "./joinGroup";
+import { AuthContext } from "./AuthContext";
+
 
 function JoinGroupButton(){
     let navigate = useNavigate();
@@ -23,9 +25,11 @@ function CreateNewGroupButton(){
 }
 
 function MenuScreen() {
+const {userID}= useContext(AuthContext);
   return (
     <div>
       <h1>Menu Screen</h1>
+      <p>{userID}</p>
         <JoinGroupButton />
         <CreateNewGroupButton />
       <p>Welcome to the menu screen!</p>

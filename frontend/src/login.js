@@ -3,8 +3,7 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react
 import MenuScreen from "./menu"
 import { createContext } from "react";
 import axios from "axios"
-
-const AuthContext = createContext();
+import { AuthContext } from "./AuthContext";
 
 const overHeader = {
   headers: {
@@ -13,6 +12,7 @@ const overHeader = {
 }
 
 function LoginScreen() {
+  const {userID, updateUserID} = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //const currentUser = useContext(AuthContext);
@@ -28,14 +28,13 @@ function LoginScreen() {
         "email": email,
         "password": password
       });
-      console.log("before ax");
-      const response = await axios.post('http://localhost:8000/api/login', json);
+      const response = await axios.post('http://localhost:8000/api/login', json, overHeader);
       // Perform login logic here
       //const[currentUser, setCurrentUser] = useState("");
-      setUser({'userID': response.userID});
-
-      if(response.success)
+      console.log(response.data)
+      if(response.data.success)
       {
+        updateUserID(response.data.userID)
         navigate("/menu");
       }
       // Navigate to the menu screen
