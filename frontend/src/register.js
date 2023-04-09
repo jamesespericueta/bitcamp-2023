@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const overHeader = {
     headers: {
@@ -27,6 +28,8 @@ function RegisterScreen(){
 
             if(response.success){
                 navigate("/");
+            } else {
+                console.log("user already exists");
             }
         } catch(error){
             console.error(error);
@@ -69,3 +72,4 @@ function RegisterScreen(){
         </div>
     );
 }
+export default RegisterScreen;

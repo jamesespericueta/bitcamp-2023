@@ -11,6 +11,16 @@ const overHeader = {
   }
 }
 
+function RegisterButton(){
+  let navigate = useNavigate();
+
+  return(
+    <button id="reigster-button" onClick={() => navigate("/register")}>
+      Register
+    </button>
+  )
+}
+
 function LoginScreen() {
   const {userID, updateUserID} = useContext(AuthContext);
   const [email, setEmail] = useState("");
@@ -72,7 +82,7 @@ function LoginScreen() {
         </label>
         <br />
         <button type="submit">Login</button>
-        <button onClick={handleRegister}>Register</button>
+        <RegisterButton />
       </form>
     </div>
     </AuthContext.Provider>

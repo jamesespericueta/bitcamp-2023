@@ -38,17 +38,6 @@ const createNewGroup = async(groupName, groupCode) => {
 }
 
 const createNewUser = async(username, email, password) => {
-  const query = {
-    text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING id',
-    values: [username, email, password],
-  };
-
-  try {
-    const result = await pool.query(query);
-    console.log(`new user created with id: ${result.rows[0].id}`);
-  } catch (err) {
-    console.error('Error creating user', err.stack);
-  }
 }
 
 //createNewUser("john", "john@example.com", "pass");
@@ -66,6 +55,23 @@ app.use((err, req, res, next) => {
   res.status(500).json({ message: 'Internal server error.' });
 });
 
+app.post('/api/register', async(req, res) => {
+  try{
+    const username = req.body.username;
+    const email = req.body.username;
+    const password = req.body.password;
+    const query = {
+      text: 'INSERT INTO users(name, email, password) VALUES($1, $2, $3) RETURNING id',
+      values: [username, email, password],
+    };
+
+    const result = await pool.query(query);
+    console.log(`new user created with id: ${result.rows[0].id}`);
+    res.send({sucess: true});
+  } catch(err){
+    console.error(err);
+  }
+})
 
 //adds a person to a group given their userID and groupCode
 app.post('/api/user_groups', async(req, res) => {

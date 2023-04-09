@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react
 import MenuScreen from "./menu.js";
 import JoinGroupScreen from './joinGroup.js';
 import CreateGroupScreen from './createGroup.js';
-import { AuthContext, AuthProvider } from './AuthContext';
+import RegisterScreen from './register.js';
+import { AuthContext } from './AuthContext';
 import { useState } from 'react';
+import { AuthProvider } from './AuthContext';
 
 function App() {
   return (
@@ -16,6 +18,7 @@ function App() {
           <Route path="/menu" element={<MenuScreen />} />
           <Route path="/create-group" element={<CreateGroupScreen />} />
           <Route path="/join-group" element={<JoinGroupScreen />} />
+          <Route path="/register" element={<RegisterScreen />} />
         </Routes>
       </Router>
     </AuthProvider>
