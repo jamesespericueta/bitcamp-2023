@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from "react-router-dom";
-import MenuScreen from "./menu"
+import MenuScreen from "./menu";
 import { createContext } from "react";
 import axios from "axios"
 import { AuthContext } from "./AuthContext";
