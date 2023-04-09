@@ -56,7 +56,6 @@ function LoginScreen() {
           <input
             type="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
           />
         </label>
         <br />
@@ -65,7 +64,6 @@ function LoginScreen() {
           <input
             type="password"
             value={password}
-            onChange={(event) => setPassword(event.target.value)}
           />
         </label>
         <br />
