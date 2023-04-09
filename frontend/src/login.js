@@ -12,6 +12,16 @@ const overHeader = {
   }
 }
 
+function RegisterButton(){
+  let navigate = useNavigate();
+
+  return(
+    <button id="reigster-button" onClick={() => navigate("/register")}>
+      Register
+    </button>
+  )
+}
+
 function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,7 +39,7 @@ function LoginScreen() {
         "password": password
       });
       console.log("before ax");
-      const response = await axios.post('http://localhost:8000/api/login', json);
+      const response = await axios.post('http://localhost:8000/api/login', json, overHeader);
       // Perform login logic here
       //const[currentUser, setCurrentUser] = useState("");
       setUser({'userID': response.userID});
@@ -70,6 +80,7 @@ function LoginScreen() {
         </label>
         <br />
         <button type="submit">Login</button>
+        <RegisterButton />
       </form>
     </div>
     </AuthContext.Provider>
